@@ -156,6 +156,9 @@
     <div class="promo-banner">
       🖥️ <a href="https://screentestpropro.vercel.app/" target="_blank">Screen Test & Dead Pixel Checker 🖥️</a>
     </div>
+    <div class="promo-banner">
+      🌐 <a href="https://netsetgopro.vercel.app" target="_blank">NetSetGo Pro: Test Your Internet Speed Instantly! 🚀</a>
+    </div>
   </div>
 
   <main class="container">
@@ -278,6 +281,36 @@
         let barHeight = (dataArray[i] / 255) * canvas.height;
         canvasCtx.fillStyle = '#38bdf8';
         canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+        x += barWidth;
+      }
+    }
+
+    recordBtn.addEventListener('click', () => {
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(mediaStream);
+      mediaRecorder.start();
+      
+      recordBtn.disabled = true;
+      recordBtn.innerText = "Recording (5s)...";
+
+      mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        audioPlayback.src = URL.createObjectURL(blob);
+        audioPlayback.style.display = "block";
+        audioPlayback.play();
+        recordBtn.innerText = "Record 5s & Playback";
+        recordBtn.disabled = false;
+      };
+
+      setTimeout(() => {
+        if (mediaRecorder.state === "recording") mediaRecorder.stop();
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
+    canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
         x += barWidth;
       }
     }
