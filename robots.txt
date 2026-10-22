@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mic-testpro.vercel.app/sitemap.xml
